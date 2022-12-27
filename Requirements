@@ -1,0 +1,78 @@
+- login (admin, petugas)
+- register
+
+MENU WEB
+- dashboard page 
+	(buku, anggota, peminjaman, pengembalian)
+	
+- kelola data
+	- data buku
+		- read
+		- create
+		- update
+		- delete
+	- data anggota
+	
+- sirkulasi
+	- tambah data peminjaman
+	- perpanjang peminjaman (field kelola/action)
+	- kembalikan buku (field kelola/action)
+
+- log data
+	- peminjaman
+	- pengembalian
+	
+- laporan
+	- laporan buku
+	- laporan anggota
+	- laporan peminjaman
+	- laporan pengembalian
+	
+- pengguna sistem
+	(menampilkan list data pengguna [admin, petugas])
+	
+- logout
+
+
+STRUKRUT DB
+
+table_buku
+	id,kode_buku, judul, pengarang, penerbit, tahun terbit
+
+table_anggota
+	id, nis, nama, jk, alamat
+	
+table_peminjaman
+	id, kode_peminjaman, id_buku, id_anggota, tgl_pinjam, tgl_kembali, status["PIN","KEM"] (automate pinjam 7 hari)
+	
+table_user
+	user admin dan petugas
+	
+table_log_pinjam
+	id, id_buku, id_anggota, tgl_pinjam
+
+	
+	
+	
+	 $table->bigIncrements('id');
+            $table->string('kode_peminjaman');
+            $table->unsignedBigInteger('id_buku');
+            $table->foreign('id_buku')->reference('id')->on('buku');
+            $table->unsignedBigInteger('id_anggota');
+            $table->foreign('id_anggota')->references('id')->on('anggota');
+            $table->date('tanggal_pinjam');
+            $table->date('tanggal_kembali');
+            $table->enum('status', ['PIN', 'KEM']);
+            
+            
+            
+            
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id_buku');
+            $table->foreign('id_buku')->references('id')->on('buku');
+            $table->unsignedBigInteger('id_anggota');
+            $table->foreign('id_anggota')->references('id')->on('anggota');
+            $table->date('tanggal_pinjam');
+
+
+
